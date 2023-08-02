@@ -1,15 +1,9 @@
-INSERT INTO Pessoa (NomePessoa, CnhPessoa) VALUES ('Gabriel Christofolett', '4681083901');
+INSERT INTO Pessoa (NomePessoa, CnhPessoa) VALUES ('Murilo Souza', '5682018472'),('Gabriela Akiko', '4682984671'),('Gabriel Dantas', '4682479173'); 
 
-UPDATE Pessoa SET NomePessoa = 'Gabriel Dantas' WHERE IdPessoa = 3;
+INSERT INTO Telefone (IdPessoa, NumeroTelefone) VALUES (3, '11957027492'),(3, '11936402479'),(4, '11946294916'),(2, '11956208593');
 
-INSERT INTO Telefone (IdPessoa, NumeroTelefone) VALUES (2, '11957027492'),(2, '11936402479'),(3, '11946294916'),(1, '11956208593');
-
-DELETE FROM Telefone WHERE IdTelefone = 5;
-
-INSERT INTO Email (IdPessoa, EnderecoEmail) 
-VALUES (2, 'gabriela@email.com'),(3, 'gcdantas@email.com'),(3, 'gabriel@email.com'),(1, 'murilo.souza@email.com'),(3, 'dantas.gabriel@email.com');
-
-UPDATE Email SET EnderecoEmail = 'gabriela.akiko@emial.com' WHERE IdPessoa = 2;
+INSERT INTO Email (IdPessoa, EnderecoEmail)
+VALUES (3, 'gabriela.akiko@emial.com'),(4, 'gcdantas@email.com'),(4, 'gabriel@email.com'),(2, 'murilo.souza@email.com'),(4, 'dantas.gabriel@email.com');
 
 SELECT * FROM Pessoa;
 SELECT * FROM Telefone;

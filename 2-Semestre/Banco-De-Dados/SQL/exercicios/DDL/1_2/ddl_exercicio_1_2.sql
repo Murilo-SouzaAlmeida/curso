@@ -36,9 +36,10 @@ CREATE TABLE Aluguel(
 	IdAluguel INT PRIMARY KEY IDENTITY,
 	IdCliente INT FOREIGN KEY REFERENCES Cliente(IdCliente) NOT NULL,
 	IdVeiculo INT FOREIGN KEY REFERENCES Veiculo(IdVeiculo) NOT NULL,
+	DataInicioAluguel DATETIME NOT NULL, 
+	DataFinalAluguel DATETIME NOT NULL, 
+	ValorAluguel MONEY NOT NULL
 );
-
-ALTER TABLE Aluguel ADD DataInicioAluguel DATETIME, DataFinalAluguel DATETIME, ValorAluguel MONEY;
 
 SELECT * FROM Cliente;
 SELECT * FROM Locadora;
