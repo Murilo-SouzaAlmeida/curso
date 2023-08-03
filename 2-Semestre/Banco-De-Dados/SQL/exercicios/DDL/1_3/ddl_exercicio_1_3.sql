@@ -4,12 +4,20 @@ USE Exercicio_1_3;
 
 CREATE TABLE Cliente(
 	IdCliente INT PRIMARY KEY IDENTITY,
-	NomeCliente VARCHAR(50) NOT NULL
+	NomeCliente VARCHAR(50) NOT NULL,
+	TelefoneCliente VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE Clinica(
 	IdClinica INT PRIMARY KEY IDENTITY,
-	NomeClinica VARCHAR(20) NOT NULL
+	NomeClinica VARCHAR(20) NOT NULL,
+	EnderecoClinica VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE Veterinario(
+	IdVeterinario INT PRIMARY KEY IDENTITY,
+	IdClinica INT FOREIGN KEY REFERENCES Clinica(IdClinica) NOT NULL,
+	NomeVeterinario VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE TipoPet(
@@ -23,9 +31,26 @@ CREATE TABLE RacaPet(
 	NomeRacaPet VARCHAR(25) NOT NULL
 );
 
+CREATE TABLE Pet(
+	IdPet INT PRIMARY KEY IDENTITY,
+	IdCliente INT FOREIGN KEY REFERENCES Cliente(IdCliente) NOT NULL,
+	IdRacaPet INT FOREIGN KEY REFERENCES RacaPet(IdRacaPet) NOT NULL,
+	NomePet VARCHAR(15) NOT NULL,
+	DataNascPet DATE NOT NULL
+);
 
+CREATE TABLE Atendimento(
+	IdAtendimento INT PRIMARY KEY IDENTITY,
+	IdPet INT FOREIGN KEY REFERENCES Pet(IdPet) NOT NULL,
+	IdVeterinario INT FOREIGN KEY REFERENCES Veterinario(IdVeterinario) NOT NULL,
+	DataAtendimento DATETIME NOT NULL,
+	ValorAtendimento MONEY NOT NULL
+);
 
 SELECT * FROM Cliente;
 SELECT * FROM Clinica;
+SELECT * FROM Veterinario;
 SELECT * FROM TipoPet;
 SELECT * FROM RacaPet;
+SELECT * FROM Pet;
+SELECT * FROM Atendimento;
