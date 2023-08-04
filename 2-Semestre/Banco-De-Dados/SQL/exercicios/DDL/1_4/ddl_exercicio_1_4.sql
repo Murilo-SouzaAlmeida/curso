@@ -26,12 +26,15 @@ CREATE TABLE Plataforma(
 	NomePlataforma VARCHAR(25) NOT NULL
 );
 
+--Alterar o tipo de dado de uma coluna
+ALTER TABLE Plataforma ALTER COLUMN NomePlataforma VARCHAR(100);
+
 CREATE TABLE [Login](
 	IdLogin INT PRIMARY KEY IDENTITY,
 	IdUsuario INT FOREIGN KEY REFERENCES Usuario(IdUsuario) NOT NULL,
 	IdPlataforma INT FOREIGN KEY REFERENCES Plataforma(IdPlataforma) NOT NULL,
 	EmailLogin VARCHAR(100) NOT NULL UNIQUE,
-	TelefoneLogin VARCHAR(15) NOT NULL UNIQUE
+	SenhaLogin VARCHAR(100) NOT NULL 
 );
 
 CREATE TABLE Artista(
