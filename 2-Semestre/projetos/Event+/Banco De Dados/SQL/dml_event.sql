@@ -1,7 +1,5 @@
 USE [Event+_Tarde];
 
-SELECT * FROM PresencasEvento;
-
 --Comandos DML
 INSERT INTO TiposDeUsuario (TituloTipoUsuario)
 VALUES
@@ -50,3 +48,7 @@ VALUES
 	(10,3,0),
 	(9,4,1);
 
+INSERT INTO ComentarioEvento (IdUsuario,IdEvento,TituloComentario,DescricaoComentario,DataComentario,ComentarioExibido)
+VALUES
+	(10,3,'Um grande Evento!','Foi um grande evento esse, muito divertido e dinâmico. Meus parabéns ao palestrante, um ótico profissional!','10-05-2024',1),
+	(9,1,'Evento do Caralho!','Muito difícil de entender a oficina e o professor não explicou direito inventando palavras novas a cada momento. Vai se FUDER!!','22-09-2023',0);
