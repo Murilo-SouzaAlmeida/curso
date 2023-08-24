@@ -61,3 +61,5 @@ nível 500: não conseguiu acessar o servidor para fazer a requisição
 fluxo da aplicação:
 client(front-end) <-> Controller(endpoint) <-> Repository(métodos/conexão com o bd) <-> Domain(bd)
 Repository <-> Interface(métodos pré definidos)
+
+Controller -> controla as requests, rotas e métodos Http que serão utilizados

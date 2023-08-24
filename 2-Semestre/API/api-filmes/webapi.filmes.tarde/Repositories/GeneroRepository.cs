@@ -4,23 +4,26 @@ using webapi.filmes.tarde.Interfaces;
 
 namespace webapi.filmes.tarde.Repositories
 {
-    /// <summary>
-    /// Repository que será responsável pelas regras de negócios da entidade(tabela) Genero - assm como fazer seus CRUD
-    /// </summary>
     public class GeneroRepository : IGeneroRepository
     {
-        /// <summary>
-        /// String de conexão com o banco de dados
-        /// Data Source - nome do servidor
-        /// Initial Catalogue - nome do banco de dados
-        /// Autenticaçao:
-        ///     Sql server:
-        ///         User Id - nome do usuário
-        ///         Pwd - senha do usuário
-        ///     Windowns:
-        ///         Integrated Securiry = true - caso esteja usando o bagulho do windowns
+        //Utilizada para conectar ao banco de dados
+        /// String de conexão com o banco de dados que recebe os seguintes parâmetros:
+        /// Data Source: nome do servidor do banco
+        /// Initial catalog: Nome do BD
+        /// Autenticação:
+        /// -Windows: Integrated Security = True
+        /// SqlServer: User Id = sa; Pwd = Senha
         /// </summary>
-        private string StringConexao = "Data Source = NOTE16-S15; Initial Catalogue = Filmes_Tarde; User Id = sa; Pwd = Senai@134";
+        private string StringConexao = "Data Source = NOTE16-S15; Initial Catalog = Filmes_Tarde; User Id = sa; Pwd = Senai@134";
+        public void AtualizarIdCorpo(GeneroDomain genero)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AtualizarIdURL(int id, GeneroDomain genero)
+        {
+            throw new NotImplementedException();
+        }
 
         public void AtualizarIdUrl(int _idGenero, GeneroDomain _genero)
         {
@@ -32,14 +35,39 @@ namespace webapi.filmes.tarde.Repositories
             throw new NotImplementedException();
         }
 
-        public GeneroDomain BuscarPorId(int _idGenero)
+        public GeneroDomain BuscarPorId(int id)
         {
+
+            /*using (SqlConnection con = new SqlConnection(StringConexao)
+            {
+                string queryNome = "SELECT Nome FROM Genero";
+
+            }*/
             throw new NotImplementedException();
         }
 
-        public void Cadastrar(GeneroDomain _novoGenero)
+        /// <summary>
+        /// Esse método vai cadastrar um novo gênero
+        /// </summary>
+        /// <param name="NovoGenero">Objeto com as informações que serão cadastradas</param>
+        public void Cadastrar(GeneroDomain NovoGenero)
         {
-            throw new NotImplementedException();
+            //Declara o SqlConnection passando a string de conexão como parâmetro
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                //Declara a query que será executada
+                string QueryInsert = $"INSERT INTO Genero (Nome) VALUES ('{NovoGenero.Nome}')";
+
+                //declara o SqlCommand passando a query que será executada e a conexão com o banco de dados
+                using (SqlCommand command = new SqlCommand(QueryInsert, con))
+                {
+                    //abre a conexão com o banco de dados
+                    con.Open();
+
+                    //apenas executar o que está na variável como uma query
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Deletar(int _idGenero)
@@ -48,54 +76,64 @@ namespace webapi.filmes.tarde.Repositories
         }
 
         /// <summary>
-        /// Lista todos os objetos do tipo Genero
+        /// Listar todos os objetos do tipo genero
         /// </summary>
-        /// <returns>Uma lista de objetos</returns>
+        /// <returns>Lista de objetos do tipo gênero</returns>
+        /// <exception cref="NotImplementedException"></exception>
         public List<GeneroDomain> ListarTodos()
         {
-            //Lista de gêneros instanciada onde serão armazenados os gêneros
+            //Cria uma lista de generos onde serão armazenados os generos
             List<GeneroDomain> ListaGeneros = new List<GeneroDomain>();
 
-            //Conexão com o banco de dados pelo System.Data.SqlClient - usando o using e o SqlConnection junto da string de conexão como parâmetro
+
+            //Declara a SqlConnection, passando a string de conexão como parâmetro. É o objeto que faz a conexão com o BD
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
-                //Para usar scripts SQL coloco a instrução a ser executada em uma variável
-                string todosGeneros = "SELECT IdGenero,Nome FROM Genero;";
+                //Declara a instrução a ser executada, no caso, é o select
+                string querySelectAll = "SELECT IdGenero, Nome FROM Genero";
 
-                //Abre a conexão com o banco de dados
+
+                //Abre a conexão com o BD
                 con.Open();
 
-                //Declara o SqlDatReader para percorrer(ler) os dados da tabela no banco de dados
+                //Declara o SqlDataReader para percorrer/ler a tabela no BD
                 SqlDataReader rdr;
 
-                //Recurso usado para executar o comando já estabelecido anteriormente usando a conexão já estabelecida anteriormente
-                //Declara o SqlCommand passando o comando que será executado e a conexão com o banco de dados
-                using (SqlCommand cmd = new SqlCommand(todosGeneros, con))
+
+                //Declara o SqlCommand passando a query que será executada e a conexão
+                using (SqlCommand cmd = new SqlCommand(querySelectAll, con))
                 {
-                    //Executa de fato o comando e armazena os dados no leitor de dados (rdr)
+                    //executa a query e armazena os dados na rdr
                     rdr = cmd.ExecuteReader();
 
-                    //Enquanto houver registros para serem lidos no rdr o laço se repetirá
-                    while(rdr.Read())
-                    {
-                        GeneroDomain generoBuscado = new GeneroDomain()
-                        {
-                            //Atribui a propriedade IdGenero com o ou com o nome especificado da colunada da tabelal
-                            //Usar o Convert.To para converter dados do rdr
 
-                            //Aqui é por posição da coluna
+                    //Enquanto houver registros a serem lidos no rdr, o laço se repetirá
+                    while (rdr.Read())
+                    {
+                        GeneroDomain gennero = new GeneroDomain()
+                        {
+                            //Atribui a propriedade IdGenero ao valor da primeira coluna da tabela
                             IdGenero = Convert.ToInt32(rdr[0]),
 
-                            //Aqui é por nome da coluna
-                            Nome = Convert.ToString(rdr["Nome"])
+                            //Atribui a propriedade nome ao valor da coluna nome
+                            Nome = Convert.ToString(rdr[1])
+
+                            //ou: NomeGenero = rdr["Nome"].ToString()
+
                         };
 
-                        ListaGeneros.Add(generoBuscado);
+                        //Adiciona o objeto criado dentro da lista
+                        ListaGeneros.Add(gennero);
+
+
                     }
                 }
             }
 
+            //Retorna a lista de generos
             return ListaGeneros;
         }
+
+
     }
 }
