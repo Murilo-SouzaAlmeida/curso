@@ -80,11 +80,72 @@ namespace webapi.filmes.tarde.Controllers
                 //return Created("Genero cadastrado com sucsso", genero);
                 return StatusCode(201, "Gênero cadastrado com sucesso!");
             }
-            catch(Exception erro)
+            catch (Exception erro)
             {
                 //mandando a response
                 return BadRequest(erro.Message);
 
+            }
+        }
+
+        /// <summary>
+        /// Endpoint que acessa o método de deletar gêneros
+        /// </summary>
+        /// <param name="_id">Id do gênero a ser deletado</param>
+        /// <returns>Status code e mensagen a ser exibida</returns>
+        [HttpDelete("{_id}")]
+        public IActionResult Delete(int _id)
+        {
+            try
+            {
+                _generoRepository.Deletar(_id);
+
+                return StatusCode(200, "O gênero foi deletado com sucesso");
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+        }
+
+        /// <summary>
+        /// Endpoint que acessa o método de atualizar gêneros pelo Id no corpo
+        /// </summary>
+        /// <param name="_genero">Objeto com as novas informações do gênero</param>
+        /// <returns>Status code e mensagen a ser exibida</returns>
+        [HttpPut]
+        public IActionResult Put(GeneroDomain _genero)
+        {
+            try
+            {
+                _generoRepository.AtualizarPorIdGenero(_genero);
+
+                return StatusCode(200, "O gênero foi atualizado com sucesso");
+            }
+            catch(Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+        }
+
+        /// <summary>
+        /// Endpoint que acessa o método de atualizar gêneros pelo Id na Url
+        /// </summary>
+        /// <param name="_id">Id do gênero a ser atualizado</param>
+        /// <param name="_genero">Objeto com as novas informações do gênero a ser atualizado</param>
+        /// <returns></returns>
+        [HttpPut("{_id}")]
+        public IActionResult Put(int _id, GeneroDomain _genero)
+        {
+            try
+            {
+                _generoRepository.AtualizarIdUrl(_id, _genero);
+
+                return StatusCode(200, "O gênero foi atualizado com sucesso");
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
             }
         }
     }

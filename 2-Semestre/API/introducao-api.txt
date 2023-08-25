@@ -63,3 +63,10 @@ client(front-end) <-> Controller(endpoint) <-> Repository(métodos/conexão com 
 Repository <-> Interface(métodos pré definidos)
 
 Controller -> controla as requests, rotas e métodos Http que serão utilizados
+
+Recordação:
+Repository Pattern - Padrão repositório
+	Domain - Classes
+	Interface - Contrato/métodos
+	Repository - Lógica/implementação dos métodos
+	Controller - Endpoints/rotas
