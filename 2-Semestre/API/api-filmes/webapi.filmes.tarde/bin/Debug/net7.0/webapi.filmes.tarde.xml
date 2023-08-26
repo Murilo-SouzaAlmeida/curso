@@ -17,9 +17,16 @@
         </member>
         <member name="M:webapi.filmes.tarde.Controllers.GeneroController.Get">
             <summary>
-            EndPoint que acessa o método de listar os generos 
+            EndPoint que acessa o método de listar todos os generos 
             </summary>
             <returns>Lista de generos e um StatusCode</returns>
+        </member>
+        <member name="M:webapi.filmes.tarde.Controllers.GeneroController.Get(System.Int32)">
+            <summary>
+            EndPoint que acessa o método de buscar determinado gênero por seu id
+            </summary>
+            <param name="id">Id do gênero a ser buscado</param>
+            <returns>As informações do gênero buscado</returns>
         </member>
         <member name="M:webapi.filmes.tarde.Controllers.GeneroController.Post(webapi.filmes.tarde.Domains.GeneroDomain)">
             <summary>

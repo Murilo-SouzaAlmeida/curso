@@ -39,7 +39,7 @@ namespace webapi.filmes.tarde.Controllers
 
 
         /// <summary>
-        /// EndPoint que acessa o método de listar os generos 
+        /// EndPoint que acessa o método de listar todos os generos 
         /// </summary>
         /// <returns>Lista de generos e um StatusCode</returns>
 
@@ -61,6 +61,26 @@ namespace webapi.filmes.tarde.Controllers
                 return BadRequest(erro.Message);
             }
 
+        }
+
+        /// <summary>
+        /// EndPoint que acessa o método de buscar determinado gênero por seu id
+        /// </summary>
+        /// <param name="id">Id do gênero a ser buscado</param>
+        /// <returns>As informações do gênero buscado</returns>
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                GeneroDomain genero = _generoRepository.BuscarPorId(id);
+
+                return StatusCode(200, genero);
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
         }
 
         /// <summary>

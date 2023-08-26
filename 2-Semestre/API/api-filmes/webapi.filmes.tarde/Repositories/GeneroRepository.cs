@@ -14,7 +14,11 @@ namespace webapi.filmes.tarde.Repositories
         /// -Windows: Integrated Security = True
         /// SqlServer: User Id = sa; Pwd = Senha
         /// </summary>
-        private string StringConexao = "Data Source = NOTE16-S15; Initial Catalog = Filmes_Tarde; User Id = sa; Pwd = Senai@134";
+
+        // Senai
+        //    private string StringConexao = "Data Source = NOTE16-S15; Initial Catalog = Filmes_Tarde; User Id = sa; Pwd = Senai@134";
+        //Casa:
+        private string StringConexao = "Data Source = NOTEBOOKFAMILIA; Initial Catalog = Filmes; User Id = sa; Pwd = Murilo12$";
 
         /// <summary>
         /// Método para atualizar as informações de um gênero passando o id pela Url
@@ -71,10 +75,27 @@ namespace webapi.filmes.tarde.Repositories
 
                 con.Open();
 
-                SqlDataReader str;
+                SqlDataReader sdr;
+
+                using (SqlCommand cmd = new SqlCommand(QuerySelectById, con))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    sdr = cmd.ExecuteReader();
+                }
+
+                if (sdr.Read())
+                {
+                    GeneroDomain generoBuscado = new GeneroDomain()
+                    {
+                        IdGenero = Convert.ToInt32(sdr[0]),
+                        Nome = Convert.ToString(sdr[1])
+                    };
+
+                    genero = generoBuscado;
+                }
             }
 
-                return genero;
+            return genero;
         }
 
         /// <summary>
