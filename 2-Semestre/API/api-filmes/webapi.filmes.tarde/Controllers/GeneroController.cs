@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using webapi.filmes.tarde.Domains;
 using webapi.filmes.tarde.Interfaces;
 using webapi.filmes.tarde.Repositories;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace webapi.filmes.tarde.Controllers
 {
@@ -75,7 +76,15 @@ namespace webapi.filmes.tarde.Controllers
             {
                 GeneroDomain genero = _generoRepository.BuscarPorId(id);
 
-                return StatusCode(200, genero);
+                if (genero.IdGenero == id)
+                {
+                    return StatusCode(200, genero);
+                }
+                else
+                {
+                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
+                }
+                
             }
             catch (Exception erro)
             {
@@ -118,9 +127,18 @@ namespace webapi.filmes.tarde.Controllers
         {
             try
             {
-                _generoRepository.Deletar(_id);
+                GeneroDomain genero = _generoRepository.BuscarPorId(_id);
 
-                return StatusCode(200, "O gênero foi deletado com sucesso");
+                if(genero.IdGenero == _id)
+                {
+                    _generoRepository.Deletar(_id);
+
+                    return StatusCode(200, "O gênero foi deletado com sucesso");
+                }
+                else
+                {
+                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
+                }
             }
             catch (Exception erro)
             {
@@ -159,9 +177,18 @@ namespace webapi.filmes.tarde.Controllers
         {
             try
             {
-                _generoRepository.AtualizarIdUrl(_id, _genero);
+                GeneroDomain _generoBuscado = _generoRepository.BuscarPorId(_id);
 
-                return StatusCode(200, "O gênero foi atualizado com sucesso");
+                if (_generoBuscado.IdGenero == _id)
+                {
+                    _generoRepository.AtualizarIdUrl(_id, _genero);
+
+                    return StatusCode(200, "O gênero foi atualizado com sucesso");
+                }
+                else
+                {
+                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
+                }
             }
             catch (Exception erro)
             {

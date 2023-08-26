@@ -85,13 +85,8 @@ namespace webapi.filmes.tarde.Repositories
 
                 if (sdr.Read())
                 {
-                    GeneroDomain generoBuscado = new GeneroDomain()
-                    {
-                        IdGenero = Convert.ToInt32(sdr[0]),
-                        Nome = Convert.ToString(sdr[1])
-                    };
-
-                    genero = generoBuscado;
+                    genero.IdGenero = Convert.ToInt32(sdr[0]);
+                    genero.Nome = Convert.ToString(sdr[1]);
                 }
             }
 
