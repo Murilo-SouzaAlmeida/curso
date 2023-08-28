@@ -35,6 +35,13 @@
             </summary>
             <param name="filme">Objeto com as novas informações do filme</param>
         </member>
+        <member name="M:webapi.filmes.tarde.Controllers.FilmeController.PutByUrl(System.Int32,webapi.filmes.tarde.Domains.FilmeDomain)">
+            <summary>
+            Endpoint que acessa o método para atualizar o filme pela url
+            </summary>
+            <param name="id">Id do filme a ser atualizado passado pela url</param>
+            <param name="filmeAtualizado">Objeto com as novas informações do filme</param>
+        </member>
         <member name="T:webapi.filmes.tarde.Controllers.GeneroController">
             <summary>
             Route: define que a rota de uma requisição será no seguinte formato: dominio/api/nomeController

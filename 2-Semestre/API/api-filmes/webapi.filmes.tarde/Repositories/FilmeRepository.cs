@@ -9,7 +9,10 @@ namespace webapi.filmes.tarde.Repositories
     /// </summary>
     public class FilmeRepository : IFilmeRepository
     {
-        private string StringConexao = "Data Source = NOTEBOOKFAMILIA; Initial Catalog = Filmes; User Id = sa; Pwd = Murilo12$";
+        // Senai
+            private string StringConexao = "Data Source = NOTE16-S15; Initial Catalog = Filmes_Tarde; User Id = sa; Pwd = Senai@134";
+        //Casa:
+        //private string StringConexao = "Data Source = NOTEBOOKFAMILIA; Initial Catalog = Filmes; User Id = sa; Pwd = Murilo12$";
 
         /// <summary>
         /// Método responsável por atualizar determinado filme pela Url
@@ -87,10 +90,12 @@ namespace webapi.filmes.tarde.Repositories
                         filme.Titulo = Convert.ToString(leitor["Titulo"]);
                         filme.Genero.IdGenero = Convert.ToInt32(leitor["IdGenero"]);
                         filme.Genero.Nome = Convert.ToString(leitor["Nome"]);
+
+                        return filme;
                     }
                 }
             }
-                return filme;
+            return null;
         }
 
         /// <summary>
@@ -171,7 +176,6 @@ namespace webapi.filmes.tarde.Repositories
                     }
                 }
             }
-
             return listaDeFilmes;
         }
     }

@@ -76,13 +76,13 @@ namespace webapi.filmes.tarde.Controllers
             {
                 GeneroDomain genero = _generoRepository.BuscarPorId(id);
 
-                if (genero.IdGenero == id)
+                if (genero == null)
                 {
-                    return StatusCode(200, genero);
+                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
                 }
                 else
                 {
-                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
+                    return StatusCode(200, genero);
                 }
                 
             }
@@ -129,15 +129,16 @@ namespace webapi.filmes.tarde.Controllers
             {
                 GeneroDomain genero = _generoRepository.BuscarPorId(_id);
 
-                if(genero.IdGenero == _id)
+                if(genero == null)
+                {
+                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
+                    
+                }
+                else
                 {
                     _generoRepository.Deletar(_id);
 
                     return StatusCode(200, "O gênero foi deletado com sucesso");
-                }
-                else
-                {
-                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
                 }
             }
             catch (Exception erro)
@@ -179,15 +180,16 @@ namespace webapi.filmes.tarde.Controllers
             {
                 GeneroDomain _generoBuscado = _generoRepository.BuscarPorId(_id);
 
-                if (_generoBuscado.IdGenero == _id)
+                if (_generoBuscado == null)
+                {
+                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
+                   
+                }
+                else
                 {
                     _generoRepository.AtualizarIdUrl(_id, _genero);
 
                     return StatusCode(200, "O gênero foi atualizado com sucesso");
-                }
-                else
-                {
-                    return StatusCode(404, "Não existe gênero cadastrado com o Id informado");
                 }
             }
             catch (Exception erro)

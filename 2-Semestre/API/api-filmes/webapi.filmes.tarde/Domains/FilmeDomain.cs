@@ -15,6 +15,7 @@ namespace webapi.filmes.tarde.Domains
         //Referêcia para a classe Genero (GeneroDomain) - para Filme "enxergar" gênero
         public GeneroDomain? Genero { get; set; }
 
+        //Construtor para instanciar o objeto de gênero
         public FilmeDomain()
         {
             Genero = new GeneroDomain();

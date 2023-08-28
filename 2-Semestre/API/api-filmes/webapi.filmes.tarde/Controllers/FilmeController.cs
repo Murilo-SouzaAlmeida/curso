@@ -59,15 +59,14 @@ namespace webapi.filmes.tarde.Controllers
             {
                 FilmeDomain filme = _filmeRepository.BurcarPorId(id);
 
-                if (filme.IdFilme == id)
-                {
-                    return StatusCode(200, filme);
-                }
-                else
+                if (filme == null)
                 {
                     return StatusCode(404, this.IdNaoEncontrado);
                 }
-
+                else
+                {
+                    return StatusCode(200, filme);
+                }
             }catch(Exception erro)
             {
                 return BadRequest(erro.Message);
@@ -104,14 +103,14 @@ namespace webapi.filmes.tarde.Controllers
             {
                 FilmeDomain filme = _filmeRepository.BurcarPorId(id);
 
-                if(filme.IdFilme == id) {
+                if(filme == null) {
+                    return StatusCode(404, this.IdNaoEncontrado);
+                }
+                else { 
+
                     _filmeRepository.DeletarFilme(id);
 
                     return StatusCode(200, this.OperacaoBemSucedida("deletado"));
-                }
-                else
-                {
-                    return StatusCode(404, this.IdNaoEncontrado);
                 }
             }catch(Exception erro)
             {
@@ -149,15 +148,15 @@ namespace webapi.filmes.tarde.Controllers
             {
                 FilmeDomain filmeBuscado = _filmeRepository.BurcarPorId(id);
 
-                if (filmeBuscado.IdFilme == id)
+                if (filmeBuscado == null)
+                {
+                    return StatusCode(404, this.IdNaoEncontrado);
+                }
+                else
                 {
                     _filmeRepository.AtualizarPelaUrl(id, filmeAtualizado);
 
                     return StatusCode(200, this.OperacaoBemSucedida("atualizado"));
-                }
-                else
-                {
-                    return StatusCode(404, this.IdNaoEncontrado);
                 }
             }catch(Exception erro)
             {
